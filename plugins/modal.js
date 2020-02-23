@@ -20,17 +20,17 @@ function _createModal(options) {
   `)
   modal.querySelector(".modal-body").innerHTML = options.content || "<p>No content provided</p>"
   modal.querySelector(".modal-title").textContent = options.title || "new modal"
+  !options.closable || modal.querySelector(".modal-close").remove();
   document.body.appendChild(modal)
   return modal
 }
 
 /*
-* title: string
+
 * closable: boolean
-* content: string
 * width: string ('400px')
 * destroy(): void
-* Окно должно закрываться
+
 * --------------
 * setContent(html: string): void | PUBLIC
 * onClose(): void
@@ -47,10 +47,16 @@ $.modal = function(options) {
   const $modal = _createModal(options)
   let closing = false
   
-
+  
   return {
     open() {
       !closing && $modal.classList.add('open')
+      document.body.addEventListener("click", event => {
+      if (event.target.className == "modal-overlay" || event.target.className == "modal-close") {
+        this.close();
+      }
+      return;
+    });
     },
     close() {
       closing = true
