@@ -5,12 +5,11 @@ function _createModal(options) {
     <div class="modal-overlay">
       <div class="modal-window">
         <div class="modal-header">
-          <span class="modal-title">Modal title</span>
+          <span class="modal-title"></span>
           <span class="modal-close">&times;</span>
         </div>
         <div class="modal-body">
-          <p>Lorem ipsum dolor sit.</p>
-          <p>Lorem ipsum dolor sit.</p>
+
         </div>
         <div class="modal-footer">
           <button>Ok</button>
@@ -19,6 +18,8 @@ function _createModal(options) {
       </div>
     </div>
   `)
+  modal.querySelector(".modal-body").innerHTML = options.content || "<p>No content provided</p>"
+  modal.querySelector(".modal-title").textContent = options.title || "new modal"
   document.body.appendChild(modal)
   return modal
 }
@@ -38,10 +39,14 @@ function _createModal(options) {
 * --------------
 * animate.css
 * */
+
+let _body =           `<p>Lorem ipsum dolor sit.</p>
+<p>Lorem ipsum dolor sit.</p>`
 $.modal = function(options) {
   const ANIMATION_SPEED = 200
   const $modal = _createModal(options)
   let closing = false
+  
 
   return {
     open() {
