@@ -2,9 +2,11 @@
 
 form {
   float: left;
-  border: 4px solid #aaa;
-  border-bottom: 4px;
+  border: 1px solid #bba;
+  border-radius: 4px;
   box-shadow: beige;
+  padding: 15px;
+  margin-right: 20px;
 }
 /* -----------------MODAL STYLES */
 
