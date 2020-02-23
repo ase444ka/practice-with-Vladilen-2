@@ -1,6 +1,6 @@
 
-const modal = $.modal()
+const modal = $.modal();
 let form = document.querySelector("form");
-form.onsubmit(
-    alert(this.innerHTML);
-)
+form.onsubmit(function(){
+    alert("asdf");
+})
