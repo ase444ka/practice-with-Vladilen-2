@@ -10,7 +10,8 @@ form {
 }
 /* -----------------MODAL STYLES */
 
-.vmodal {}
+.vmodal {
+}
 
 .vmodal.open .modal-overlay,
 .vmodal.open .modal-window {
@@ -56,7 +57,7 @@ form {
 }
 
 .modal-window {
-  width: 600px;
+  width: 400px;
   border-radius: 5px;
   background: #fff;
   margin: 0 auto;
