@@ -52,7 +52,11 @@ $.modal = function(options) {
     open() {
       !closing && $modal.classList.add('open')
       document.body.addEventListener("click", event => {
-      if (event.target.className == "modal-overlay" || event.target.className == "modal-close") {
+      let tar = event.target;
+      if (tar.className == "modal-overlay" ||
+       tar.className == "modal-close" ||
+       tar.tagName == "BUTTON" && tar.textContent == "Cancel"
+       ) {
         this.close();
       }
       return;
