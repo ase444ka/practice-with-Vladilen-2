@@ -20,7 +20,7 @@ function _createModal(options) {
   `)
   modal.querySelector(".modal-body").innerHTML = options.content || "<p>No content provided</p>"
   modal.querySelector(".modal-title").textContent = options.title || "new modal"
-  !options.closable || modal.querySelector(".modal-close").remove();
+  !options.closable && modal.querySelector(".modal-close").remove();
   document.body.appendChild(modal)
   return modal
 }
