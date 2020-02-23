@@ -1,3 +1,13 @@
+/* ----------LAYOUT STYLES--------------- */
+
+form {
+  float: left;
+  border: 4px solid #aaa;
+  border-bottom: 4px;
+  box-shadow: beige;
+}
+/* -----------------MODAL STYLES */
+
 .vmodal {}
 
 .vmodal.open .modal-overlay,
