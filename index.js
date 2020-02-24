@@ -6,8 +6,6 @@ const fruits = [
 
 /*
 
-* 2. Показать цену в модалке (и это должна быть 1 модалка)
-* 3. Модалка для удаления с 2мя кнопками
 * ---------
 * 4. На основе $.modal нужно сделать другой плагин $.confirm (Promise)
 * */
@@ -15,42 +13,77 @@ let showCards = function(goods) {
   let row = document.createElement('div');
   row.classList.add('row');
   let str = ``;
+  let i = 0;
   for (let item of goods) {
     str += `
     <div class="col">
     <div class="card">
-      <img class="card-img-top" style="height: 300px;" src="${item.img}">
+      <img class="card-img-top" style="height: 300px;" src="${item.img}">      
       <div class="card-body">
+      <i style = "display:none">${i}</i>
         <h5 class="card-title">${item.title}</h5>
-        <a href="#" class="btn btn-primary">Посмотреть цену</a>
-        <a href="#" class="btn btn-danger">Удалить</a>
+        <a href="#" class="btn btn-primary"  data-price="true">Посмотреть цену</a>
+        <a href="#" class="btn btn-danger" data-delete="true">Удалить</a>
       </div>
     </div>
   </div>
     `
+    i++;
   }
   row.insertAdjacentHTML('afterbegin', str);
   document.querySelector('h1').after(row);
+  
 
 }
 showCards(fruits);
-
-const modal = $.modal({
-  title: 'Vladilen Modal',
-  closable: true,
-  content: `
-    <p>Lorem ipsum dolor sit.</p>
-    <p>Lorem ipsum dolor sit.</p>
-  `,
-  width: '400px',
-  footerButtons: [
-    {text: 'Ок', type: 'primary', handler() {
-      console.log('Primary btn clicked')
-      modal.close()
-    }},
-    {text: 'Cancel', type: 'danger', handler() {
-        console.log('Danger btn clicked')
-        modal.close()
-      }}
-  ]
+document.body.addEventListener('click', (event) => {
+  let tar = event.target;
+  if(tar.dataset.price) {
+    let i = tar.closest('.card').querySelector('i').textContent
+    let modal = $.modal({
+      title: fruits[i].title,
+      closable: true,
+      content: `
+        <p>Эти прекрасные ${fruits[i].title} стоят ${fruits[i].price}&#8381; за килограмм!</p>
+        
+      `,
+      width: '400px',
+      footerButtons: [
+        {text: 'Покупаю!', type: 'primary', handler() {
+          console.log('Primary btn clicked')
+          modal.close()
+        }},
+        {text: 'Дороговато:(', type: 'danger', handler() {
+            console.log('Danger btn clicked')
+            modal.close()
+          }}
+      ]
+    })
+    modal.open();
+    
+  }
+  if(tar.dataset.delete) {
+    let col = tar.closest('.col');
+    let modal = $.modal({
+      title: "Внимание!!!",
+      closable: true,
+      content: `
+        <p>Вы уверены, что хотите удалить карточку??</p>
+        
+      `,
+      width: '400px',
+      footerButtons: [
+        {text: 'Уверен!', type: 'primary', handler() {
+          col.remove()
+          modal.close()
+        }},
+        {text: 'Сомневаюсь уже', type: 'danger', handler() {
+            console.log('Danger btn clicked')
+            modal.close()
+          }}
+      ]
+    })
+    modal.open();
+  }
 })
+
