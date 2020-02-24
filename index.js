@@ -5,13 +5,35 @@ const fruits = [
 ]
 
 /*
-* 1. Динамически на основе массива вывести список карточек
+
 * 2. Показать цену в модалке (и это должна быть 1 модалка)
 * 3. Модалка для удаления с 2мя кнопками
 * ---------
 * 4. На основе $.modal нужно сделать другой плагин $.confirm (Promise)
 * */
+let showCards = function(goods) {
+  let row = document.createElement('div');
+  row.classList.add('row');
+  let str = ``;
+  for (let item of goods) {
+    str += `
+    <div class="col">
+    <div class="card">
+      <img class="card-img-top" style="height: 300px;" src="${item.img}">
+      <div class="card-body">
+        <h5 class="card-title">${item.title}</h5>
+        <a href="#" class="btn btn-primary">Посмотреть цену</a>
+        <a href="#" class="btn btn-danger">Удалить</a>
+      </div>
+    </div>
+  </div>
+    `
+  }
+  row.insertAdjacentHTML('afterbegin', str);
+  document.querySelector('h1').after(row);
 
+}
+showCards(fruits);
 
 const modal = $.modal({
   title: 'Vladilen Modal',
